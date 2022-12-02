@@ -16,7 +16,36 @@ Product.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    product_name
+    product_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    price: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+      validate: {
+        isDecimal: true, //validate that the vaule is decimal
+      }
+    },
+    stock: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 10,
+      validate: {
+        isNumeric: true, //validate that the value is numeric
+      }
+    },
+    // creating foreign key column that store id from Category.
+    category_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        //References the 'category' model in Category.js as its 'modelyName' property
+        model: 'category',
+        key: 'id',
+      }
+      
+    }
+
   },
   {
     sequelize,
